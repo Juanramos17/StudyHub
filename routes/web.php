@@ -26,27 +26,23 @@ Route::middleware('guest')->group(function () {
     Route::get('/', function () {
         return Inertia::render('welcome/Index');
     })->name('welcome');
-
-    Route::get('/', function () {
-        return Inertia::render('welcome/Index');
-    })->name('welcome');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
    
     Route::get('/courses', function () {
         return Inertia::render('courses/Index');
-    })->name('courses');
+    })->name('courses.index');
 
     Route::get('/course', function () {
         return Inertia::render('course/Index');
-    })->name('course');
+    })->name('course.index');
 
     Route::get('/admin', function (Request $request) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
         $controller = app(AdminController::class);
         return $controller->index($request);
-    })->name('admin');
+    })->name('admin.index');
 
     Route::put('/admin/{id}/ban', function ($id) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
@@ -73,7 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::delete('/admin/{id}/test', function ($id) {
-    abort_unless(auth()->check() && (auth()->user()->rol === 'admin' || auth()->user()->rol === 'teacher'), 403);
+        abort_unless(auth()->check() && (auth()->user()->rol === 'admin' || auth()->user()->rol === 'teacher'), 403);
         $controller = app(AdminController::class);
         return $controller->deleteTest($id);
     });
@@ -90,52 +86,48 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return $controller->editCourse($id);
     });
 
-  Route::match(['put', 'post'], '/admin/{id}/updateUser', function (Request $request, $id) {
-    abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
-    $controller = app(AdminController::class);
-    return $controller->updateUser($request, $id);
-});
+    Route::match(['put', 'post'], '/admin/{id}/updateUser', function (Request $request, $id) {
+        abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
+        $controller = app(AdminController::class);
+        return $controller->updateUser($request, $id);
+    })->name('admin.updateUser');
 
-  Route::match(['put', 'post'], '/admin/{id}/updateCourse', function (Request $request, $id) {
-    abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
-    $controller = app(AdminController::class);
-    return $controller->updateCourse($request, $id);
-});
+    Route::match(['put', 'post'], '/admin/{id}/updateCourse', function (Request $request, $id) {
+        abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
+        $controller = app(AdminController::class);
+        return $controller->updateCourse($request, $id);
+    })->name('admin.updateCourse');
 
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::get('/profile/edit', [ProfileController::class, 'edit']);
-    Route::put('/profile/update', [ProfileController::class, 'update']);
-    Route::get('/profile/{id}/profile', [ProfileController::class, 'profileAdmin']);
-    Route::post('/profile/createCourse', [ProfileController::class, 'createCourse'])->name('createCourse');
-    Route::post('/profile/createTest', [ProfileController::class, 'createTest'])->name('createTest');
-    Route::get('/profile/{idCursoSeleccionado}/editCourse', [ProfileController::class, 'editCourse'])->name('editCourse');
-    Route::put('/profile/{courseid}/storeCourse', [ProfileController::class, 'updateCourse'])->name('updateCourse');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/{id}/profile', [ProfileController::class, 'profileAdmin'])->name('profile.admin');
+    Route::post('/profile/createCourse', [ProfileController::class, 'createCourse'])->name('profile.createCourse');
+    Route::post('/profile/createTest', [ProfileController::class, 'createTest'])->name('profile.createTest');
+    Route::get('/profile/{idCursoSeleccionado}/editCourse', [ProfileController::class, 'editCourse'])->name('profile.editCourse');
+    Route::put('/profile/{courseid}/storeCourse', [ProfileController::class, 'updateCourse'])->name('profile.updateCourse');
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
-    Route::get('/course/{id}', [CourseController::class, 'index'])->name('course');
-    Route::post('/course/{id}/enrollment', [CourseController::class, 'enrollment'])->name('enrollment');
-    Route::get('/test/{id}', [CourseController::class, 'courseTest'])->name('test');
-    Route::post('/favorite', [FavoriteController::class, 'favorite'])->name('favorite');
-    Route::get('/admin/createCourse', [AdminController::class, 'createCourse'])->name('createCourse');
-    Route::get('/admin/createUser', [AdminController::class, 'createUser'])->name('createUser');
-    Route::post('/admin/storeCourse', [AdminController::class, 'storeCourse'])->name('storeCourse');
-    Route::post('/admin/storeUser', [AdminController::class, 'storeUser'])->name('storeUser');
-    Route::post('/rating', [RatingController::class, 'rating'])->name('rating');
-    Route::get('/test/{student_id}/{test_id}', [TestPdf::class, 'generarPdf'])->name('test');
-    Route::get('/ver-pdf', [TestPdf::class, 'verPDF']);
-    Route::get('/course/titulo/{course_id}', [TituloPdf::class, 'generarPdfTitulo'])->name('generarPdfTitulo');
-    Route::get('/ver-pdf', [TituloPdf::class, 'verPDF']);
-
-
-
-
-
+    Route::get('/courses', [CoursesController::class, 'index'])->name('courses.list');
+    Route::get('/course/{id}', [CourseController::class, 'index'])->name('course.view');
+    Route::post('/course/{id}/enrollment', [CourseController::class, 'enrollment'])->name('course.enroll');
+    Route::get('/test/{id}', [CourseController::class, 'courseTest'])->name('test.view');
+    Route::post('/favorite', [FavoriteController::class, 'favorite'])->name('favorite.store');
+    Route::get('/admin/createCourse', [AdminController::class, 'createCourse'])->name('admin.createCourse');
+    Route::get('/admin/createUser', [AdminController::class, 'createUser'])->name('admin.createUser');
+    Route::post('/admin/storeCourse', [AdminController::class, 'storeCourse'])->name('admin.storeCourse');
+    Route::post('/admin/storeUser', [AdminController::class, 'storeUser'])->name('admin.storeUser');
+    Route::post('/rating', [RatingController::class, 'rating'])->name('rating.store');
+    Route::get('/test/{student_id}/{test_id}', [TestPdf::class, 'generarPdf'])->name('test.pdf');
+    Route::get('/ver-pdf', [TestPdf::class, 'verPDF'])->name('test.verPDF');
+    Route::get('/course/titulo/{course_id}', [TituloPdf::class, 'generarPdfTitulo'])->name('course.pdfTitulo');
+    Route::get('/ver-pdf', [TituloPdf::class, 'verPDF'])->name('course.verPDF');
 });
 
-  Route::match(['put', 'post'], '/test', function (Request $request) {
+Route::match(['put', 'post'], '/test', function (Request $request) {
     $controller = app(TestController::class);
     return $controller->guardar($request);
-});
+})->name('test.guardar');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
