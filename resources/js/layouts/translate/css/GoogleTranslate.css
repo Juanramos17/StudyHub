@@ -1,0 +1,82 @@
+#google_translate_element {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.goog-te-gadget {
+  font-family: "Roboto", sans-serif !important;
+  font-size: 12px !important;
+  text-transform: none;
+}
+
+.goog-te-gadget-simple {
+  background-color: #ffffffcc !important;
+  border: 1px solid #ccc !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  color: #333 !important;
+  cursor: pointer;
+}
+
+.goog-te-menu-value {
+  color: #333 !important;
+}
+
+.goog-te-menu-value span:nth-child(5) {
+  display: none;
+}
+
+.goog-te-menu-value span:nth-child(3) {
+  border: none !important;
+}
+
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+
+.skiptranslate {display: none;}
+
+body {
+  top: 0 !important;
+  position: relative !important;
+}
+
+.skiptranslate {display: none;}
+
+@media (max-width: 667px) {
+  #google_translate_element {
+    left: 16px !important;
+    right: auto;
+    bottom: 16px;
+  }
+
+  .goog-te-gadget-simple {
+    width: auto !important;
+    text-align: center;
+  }
+}
+
+/* Oculta el banner que aparece arriba o abajo con las valoraciones y controles */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+/* Oculta el texto "Powered by Google Translate" que aparece abajo */
+#goog-gt-tt, /* tooltip */
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-tooltip div {
+  display: none !important;
+  background: none !important;
+}
+

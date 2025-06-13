@@ -1,0 +1,105 @@
+/* #google_translate_element {
+  position: absolute;
+  bottom: calc(53px + 16px);
+  right: 16px!important;
+} */
+.goog-te-gadget {
+  font-family: Roboto, 'Open Sans', sans-serif!important;
+    background-color: rgba(255, 255, 255, 0.468);
+    margin-bottom: 5px;
+    height: 50px;
+    overflow: hidden;
+    width: 160px;
+    border-radius: 10px;
+}
+.goog-te-gadget-simple  {
+  background-color: rgba(255, 0, 0, 0)!important;
+  border: none !important;
+  padding: 8px!important;
+  border-radius: 4px!important;
+  font-size: 1rem!important;
+  line-height:2rem!important;
+  display: inline-block;
+  cursor: pointer;
+  zoom: 1;
+}
+.goog-te-menu2 {
+  max-width: 100%;
+}
+.goog-te-menu-value {
+  color: #fff !important;
+    &:before {
+    font-family: 'Material Icons';
+    content: "\E927";
+    margin-right: 16px;
+    font-size: 2rem;
+    vertical-align: -10px;
+  } 
+}
+.goog-te-menu-value span:nth-child(5) {
+  display:none;
+}
+.goog-te-menu-value span:nth-child(3) {
+  border:none!important;
+  font-family: 'Material Icons';
+  &:after {
+    font-family: 'Material Icons';
+    content: "\E5C5";
+    font-size: 1.5rem;
+    vertical-align: -6px;
+  }  
+}
+
+.goog-te-gadget-icon {
+    background-image: url(https://placehold.it/32)!important;
+    background-position: 0px 0px;
+    height: 32px!important;
+    width: 32px!important;
+    margin-right: 8px!important;
+    display: none;
+}
+
+
+.goog-te-banner-frame.skiptranslate {display: none!important;} 
+body {top: 0px!important;}
+
+/* ================================== *\
+    Mediaqueries
+\* ================================== */
+@media (max-width: 667px) {
+	#google_translate_element {
+		bottom: calc(100% - 50% - 53px);
+		left: 16px!important;
+		width: 100%!important;
+		goog-te-gadget {
+			width:100%!important;
+		}
+		.skiptranslate {
+			width:100%!important;			
+		}
+		.goog-te-gadget-simple {
+			width: calc(100% - 32px)!important;
+			text-align: center;
+		}	
+	}
+}
+
+/* Oculta el banner que aparece arriba o abajo con las valoraciones y controles */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+/* Oculta el texto "Powered by Google Translate" que aparece abajo */
+#goog-gt-tt, /* tooltip */
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-tooltip div {
+  display: none !important;
+  background: none !important;
+}
+
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf{
+  display: none !important;
+}
+

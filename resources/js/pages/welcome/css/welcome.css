@@ -1,0 +1,15 @@
+@keyframes hueRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(180deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.animate-hue-rotate {
+    animation: hueRotate 5s linear infinite;
+}
