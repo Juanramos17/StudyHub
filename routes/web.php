@@ -48,43 +48,43 @@ Route::middleware(['auth', 'verified'])->group(function () {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
         $controller = app(AdminController::class);
         return $controller->ban($id);
-    });
+    })->name('admin.ban');
 
     Route::put('/admin/{id}/hide', function ($id) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
         $controller = app(AdminController::class);
         return $controller->hide($id);
-    });
+    })->name('admin.hide');
 
     Route::delete('/admin/{id}/user', function ($id) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
         $controller = app(AdminController::class);
         return $controller->deleteUser($id);
-    });
+    })->name('admin.deleteUser');
 
     Route::delete('/admin/{id}/course', function ($id) {
         abort_unless(auth()->check() && (auth()->user()->rol === 'admin' || auth()->user()->rol === 'teacher'), 403);
         $controller = app(AdminController::class);
         return $controller->deleteCourse($id);
-    });
+    })->name('admin.deleteCourse');
 
     Route::delete('/admin/{id}/test', function ($id) {
         abort_unless(auth()->check() && (auth()->user()->rol === 'admin' || auth()->user()->rol === 'teacher'), 403);
         $controller = app(AdminController::class);
         return $controller->deleteTest($id);
-    });
+    })->name('admin.deleteTest');
 
     Route::get('/admin/{id}/editUser', function ($id) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
         $controller = app(AdminController::class);
         return $controller->editUser($id);
-    });
+    })->name('admin.editUser');
 
     Route::get('/admin/{id}/editCourse', function ($id) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
         $controller = app(AdminController::class);
         return $controller->editCourse($id);
-    });
+    })->name('admin.editCourse');
 
     Route::match(['put', 'post'], '/admin/{id}/updateUser', function (Request $request, $id) {
         abort_unless(auth()->check() && auth()->user()->rol === 'admin', 403);
